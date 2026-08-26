@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: thriftwear
+      MYSQL_USER: thriftwear
+      MYSQL_PASSWORD: thriftwear_dev
+      MYSQL_ROOT_PASSWORD: root_dev_only
+    ports: ["3307:3306"]
+    volumes: [thriftwear_mysql_data:/var/lib/mysql]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "thriftwear", "-pthriftwear_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  thriftwear_mysql_data:
