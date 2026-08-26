@@ -9,10 +9,10 @@ ThriftWear is a PHP-rendered sustainable fashion marketplace backed by MySQL. Th
 
 ## Run with Docker MySQL
 powershell
+
 docker compose up -d
 Get-Content php/schema.sql | docker exec -i thriftwear-vscode-full-stack-mysql-1 mysql -uroot -proot_dev_only
 Get-Content php/seed.sql | docker exec -i thriftwear-vscode-full-stack-mysql-1 mysql -uroot -proot_dev_only
-
 php -S localhost:8080 -t php php/index.php
 
 Open http://localhost:8080.
