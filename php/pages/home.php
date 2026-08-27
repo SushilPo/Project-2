@@ -6,7 +6,7 @@ function home_first_name(?array $user): string
 ?>
 
 <section class="hero">
-    <div class="home-brand"><span>↻</span><b>ThriftWear</b><a href="?page=wishlist">♡</a></div>
+    <div class="home-brand"><img src="assets/thriftwear-logo.svg" alt="ThriftWear"><a href="?page=wishlist" aria-label="Saved items" title="Saved items"><i class="fa-regular fa-heart" aria-hidden="true"></i></a></div>
     <p>Good morning, 🌿</p>
     <h1>Hey, <?= e(home_first_name($user)) ?>!</h1>
     <form class="search">
@@ -17,13 +17,13 @@ function home_first_name(?array $user): string
                 <option <?= $category === $option ? 'selected' : '' ?>><?= $option ?></option>
             <?php endforeach; ?>
         </select>
-        <button aria-label="Search">⌕</button>
+        <button aria-label="Search" title="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></button>
     </form>
 </section>
 
 <div class="category-row" aria-label="Browse categories">
-    <?php foreach (['Women' => '◌', 'Men' => '◍', 'Shoes' => '◇', 'Bags' => '□'] as $name => $icon): ?>
-        <a href="?page=home&category=<?= urlencode($name) ?>"><span><?= $icon ?></span><?= $name ?></a>
+    <?php foreach (['Women' => 'fa-solid fa-person-dress', 'Men' => 'fa-solid fa-person', 'Shoes' => 'fa-solid fa-shoe-prints', 'Bags' => 'fa-solid fa-bag-shopping'] as $name => $icon): ?>
+        <a href="?page=home&category=<?= urlencode($name) ?>"><span><i class="<?= $icon ?>" aria-hidden="true"></i></span><?= $name ?></a>
     <?php endforeach; ?>
 </div>
 

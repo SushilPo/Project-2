@@ -51,6 +51,27 @@ try {
             throw new RuntimeException('Complete all listing fields with valid values.');
         }
 
+        if (isset($_FILES['listing_photo']) && $_FILES['listing_photo']['error'] !== UPLOAD_ERR_NO_FILE) {
+            $photo = $_FILES['listing_photo'];
+            if ($photo['error'] !== UPLOAD_ERR_OK || $photo['size'] > 5 * 1024 * 1024) {
+                throw new RuntimeException('Choose an image smaller than 5 MB.');
+            }
+            $mime = (new finfo(FILEINFO_MIME_TYPE))->file($photo['tmp_name']);
+            $extensions = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/gif' => 'gif', 'image/webp' => 'webp'];
+            if (!isset($extensions[$mime]) || @getimagesize($photo['tmp_name']) === false) {
+                throw new RuntimeException('Choose a valid JPG, PNG, GIF or WEBP image.');
+            }
+            $uploadDirectory = __DIR__ . '/assets/uploads';
+            if (!is_dir($uploadDirectory) && !mkdir($uploadDirectory, 0755, true)) {
+                throw new RuntimeException('Photo storage is unavailable.');
+            }
+            $filename = bin2hex(random_bytes(16)) . '.' . $extensions[$mime];
+            if (!move_uploaded_file($photo['tmp_name'], $uploadDirectory . '/' . $filename)) {
+                throw new RuntimeException('The photo could not be saved.');
+            }
+            $image = 'assets/uploads/' . $filename;
+        }
+
         $statement = db()->prepare('INSERT INTO listings (user_id, title, description, price, category, size, item_condition, swap_available, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $statement->execute([$owner['id'], $title, $description, $price, $category, $size, $condition, isset($_POST['swap_available']) ? 1 : 0, $image]);
         flash('Your listing is live.');

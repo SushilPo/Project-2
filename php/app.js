@@ -13,6 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
         categorySelect.addEventListener('change', () => categorySelect.form?.requestSubmit());
     }
 
+    const photoInput = document.querySelector('#listing-photo');
+    const photoPreview = document.querySelector('.photo-preview');
+    if (photoInput && photoPreview) {
+        photoInput.addEventListener('change', () => {
+            const photo = photoInput.files?.[0];
+            photoPreview.replaceChildren();
+            if (!photo) return;
+            const preview = document.createElement('img');
+            preview.src = URL.createObjectURL(photo);
+            preview.alt = 'Selected listing photo preview';
+            preview.onload = () => URL.revokeObjectURL(preview.src);
+            photoPreview.append(preview);
+        });
+    }
+
     document.querySelectorAll('.auto-submit').forEach((control) => {
         control.addEventListener('change', () => control.form?.requestSubmit());
     });
