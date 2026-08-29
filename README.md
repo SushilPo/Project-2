@@ -19,7 +19,13 @@ Open http://localhost:8080.
 
 The MySQL container uses database `thriftwear`, user `thriftwear`, password `thriftwear_dev`, and host port `3307` (container port `3306`). The schema is available in `php/schema.sql`, and `php/seed.sql` adds seven demo profiles with 16 listings across all four categories.
 
-Demo accounts use the password `demo1234`.
+Demo accounts:
+email:admin@gmail.com
+password: Admin@123
+
+We have made this website available online. You can open this website by:
+https://thriftwear.kesug.com/
+
 
 ## Features
 
