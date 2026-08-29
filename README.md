@@ -23,8 +23,14 @@ Demo accounts:
 email:admin@gmail.com
 password: Admin@123
 
+
+##Run Online
+
 We have made this website available online. You can open this website by:
 https://thriftwear.kesug.com/
+Demo accounts:
+email:admin@gmail.com
+password: Admin@123
 
 
 ## Features
